@@ -1,4 +1,4 @@
 Flask==2.3.2
-twilio==8.1.2
+twilio
 openai==0.27.4
 gunicorn==21.2.0
