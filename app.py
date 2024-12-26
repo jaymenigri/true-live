@@ -5,7 +5,8 @@ import openai
 app = Flask(__name__)
 
 # Configuração da API do OpenAI
-openai.api_key = "SUA_API_KEY_AQUI"
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 def gerar_resposta_especializada(pergunta):
     fontes = [
