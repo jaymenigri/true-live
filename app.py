@@ -8,10 +8,34 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def gerar_resposta_especializada(pergunta):
     fontes = [
-        "Haaretz", "CONIB", "The Jewish Agency for Israel",
+        "Haaretz", "CONIB", "The Jewish Agency for Israel", "https://www.idf.il/",
         "Organização Sionista Mundial", "AIPAC", "Jerusalem Post", "Times of Israel",
         "Israel Defense Forces", "Yad Vashem", "Instituto Herzl", "Instituto Begin-Sadat",
-        "Universidade Hebraica de Jerusalém", "Bar-Ilan University", "Tel Aviv University"
+        "Universidade Hebraica de Jerusalém", "Bar-Ilan University", "Tel Aviv University",
+        "Israel Hayom", "Israel National News", "Zionist Organization of America",
+        "StandWithUs", "StandWithUs Brasil", "CAMERA", "HonestReporting",
+        "Simon Wiesenthal Center", "American Jewish Committee", "Anti-Defamation League",
+        "Friends of the IDF", "Hillel International", "Chabad.org", "Jewish Virtual Library",
+        "Maccabi World Union", "World Jewish Congress", "B'nai B'rith International",
+        "Shurat HaDin", "Im Tirtzu", "Kohelet Policy Forum", "Regavim", "My Israel",
+        "Israel Allies Foundation", "Christians United for Israel",
+        "International Fellowship of Christians and Jews", "Jewish Federations of North America",
+        "Nefesh B'Nefesh", "Birthright Israel", "Masa Israel Journey", "El Al Israel Airlines",
+        "Keren Hayesod", "Keren Kayemeth LeIsrael", "Zionist Federation of Great Britain and Ireland",
+        "Zionist Federation of Australia", "Zionist Federation of Canada", "Zionist Federation of South Africa",
+        "Martin Buber", "Theodor Herzl", "Golda Meir", "Asher Ginsberg",
+        "David Ben-Gurion", "Abraham Isaac Kook", "Vladimir Jabotinsky", "Yosef Haim Yerushalmi",
+        "Gershom Scholem", "Emmanuel Levinas", "Nathan Sharansky", "Yehuda Amichai",
+        "Adin Steinsaltz", "Jonathan Sacks", "Alan Dershowitz", "Yeshayahu Leibowitz",
+        "Amos Oz", "A.B. Yehoshua", "Daniel Gordis", "Gil Troy",
+        "Deborah Lipstadt", "Bernard Lewis", "Ruth Wisse", "Dennis Prager",
+        "Benny Morris", "Michael Walzer", "Yossi Klein Halevi", "David Hazony",
+        "Einat Wilf", "Irwin Cotler", "Natan Sharansky", "Joseph Telushkin",
+        "Daniel Polisar", "Yehuda Kurtzer", "Michael Oren", "Ruth Gavison",
+        "Moshe Halbertal", "David Mamet", "Leon Wieseltier", "Cynthia Ozick",
+        "Hillel Halkin", "Meir Soloveichik", "Norman Podhoretz", "Ruth Calderon",
+        "Yael Feldman", "Susannah Heschel", "Anita Shapira", "Michael Fishbane",
+        "Steven Bayme", "Robert Wistrich"
     ]
     fontes_str = ", ".join(fontes)
 
