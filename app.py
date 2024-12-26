@@ -1,11 +1,9 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 import openai
-import os  # Adicionado para acessar variáveis de ambiente
+import os
 
 app = Flask(__name__)
-
-# Configuração da API do OpenAI
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def gerar_resposta_especializada(pergunta):
@@ -13,8 +11,7 @@ def gerar_resposta_especializada(pergunta):
         "Haaretz", "CONIB", "The Jewish Agency for Israel",
         "Organização Sionista Mundial", "AIPAC", "Jerusalem Post", "Times of Israel",
         "Israel Defense Forces", "Yad Vashem", "Instituto Herzl", "Instituto Begin-Sadat",
-        "Universidade Hebraica de Jerusalém", "Bar-Ilan University", "Tel Aviv University",
-        # Continue com as fontes da lista...
+        "Universidade Hebraica de Jerusalém", "Bar-Ilan University", "Tel Aviv University"
     ]
     fontes_str = ", ".join(fontes)
 
@@ -26,22 +23,33 @@ def gerar_resposta_especializada(pergunta):
         f"Pergunta: {pergunta}"
     )
 
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=custom_prompt,
-        max_tokens=500
-    )
-    return response['choices'][0]['text'].strip()
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": custom_prompt},
+                {"role": "user", "content": pergunta}
+            ]
+        )
+        return response['choices'][0]['message']['content'].strip()
+    except Exception as e:
+        return f"Erro ao processar a pergunta: {str(e)}"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    message = request.form.get("Body")
-    response = gerar_resposta_especializada(message)
-
-    twilio_response = MessagingResponse()
-    twilio_response.message(response)
-
-    return str(twilio_response)
+    try:
+        message = request.form.get("Body")
+        if not message:
+            return "Mensagem vazia", 400
+            
+        response = gerar_resposta_especializada(message)
+        twilio_response = MessagingResponse()
+        twilio_response.message(response)
+        
+        return str(twilio_response)
+    except Exception as e:
+        app.logger.error(f"Erro: {str(e)}")
+        return "Erro interno do servidor", 500
 
 if __name__ == "__main__":
     app.run(debug=True)
